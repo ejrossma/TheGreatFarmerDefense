@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b7e2b7833098541a94fe01a8eb066d, type: 3}
+  m_Name: Corrato
+  m_EditorClassIdentifier: 
+  name: Corrato
+  cost: 2
+  sellPrice: 5
+  growthImages:
+  - {fileID: 6645909779542991491, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
+  - {fileID: 7220517265686203865, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
+  - {fileID: 2475179445717388078, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
+  - {fileID: -4428051687643113153, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
+  - {fileID: 351906640709293403, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
+  - {fileID: -436678761845232878, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
+  harvestedImage: {fileID: -2213228658277688645, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
