@@ -17,7 +17,7 @@ MonoBehaviour:
     a refill
   cost: 0
   sellPrice: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 4b50faa30434c474e9b6aedffbc54b81, type: 3}
   canAttack: 0
   canBePlanted: 0
   canBeSold: 0

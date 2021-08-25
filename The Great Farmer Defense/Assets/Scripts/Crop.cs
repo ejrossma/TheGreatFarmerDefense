@@ -6,63 +6,74 @@ using UnityEngine.UI;
 public class Crop : MonoBehaviour
 {
     public Plant[] possiblePlants; //0 = carrato, 1 = peanks , 2 = tomelone
+    public Item[] possibleHarvest;
     public Sprite[] indicatorImages;
     public GameObject indicator;
+    public GameObject player;
+    public GameObject activator;
+
+    public GameObject item; //used for when the player harvests a crop
     
-    
+    private GameObject harvestedCrop;
+    private bool canPlant;
+    private bool pickedUp;
+    private bool canPickup;
     private float growTime; //adjustable timer for each growth stage
     private float harvestTime; //how long plant takes to die
     private float growInterval; //interval in between each growth
-    private int status; //0 = hide indicator, 1 = need water (Age 0 & 2), 2 = ready to harvest, 3 = dead/needs to be removed
+    private int status; //-1 = need seed, 0 = hide indicator, 1 = need water (Age 0 & 2), 2 = ready to harvest, 3 = dead/needs to be removed
     private int age; //0-3 growth cycle, 4 = ready to harvest, 5 = dead
     private int watered; //0 = no water, 1 = watered once, 2 = watered twice (needs to be watered at age 0 && age 2)
     private SpriteRenderer indicatorSprite; //sprite being shown above plant
     private Plant currentPlant; //current plant being used
+    private int plantIndex;
     private SpriteRenderer plantSprite; //current image being shown
 
     void Start() {
+        plantIndex = 0;
+        pickedUp = false;
         harvestTime = 10;
         growInterval = 5;
         indicatorSprite = indicator.GetComponent<SpriteRenderer>();
-        currentPlant = possiblePlants[0];
+        currentPlant = possiblePlants[plantIndex];
         age = 0;
         watered = 0; //hasnt been watered yet
-        status = 1; //starts out needing water
+        status = 1; //starts out without a seed
         plantSprite = gameObject.GetComponent<SpriteRenderer>();
         updateSprite();
         growTime = growInterval;
+        canPickup = false;
+        activator.SetActive(false);
+
+        Debug.Log("Current Plant Name: " + currentPlant.name);
+        Debug.Log("Current Harvest Name: " + possibleHarvest[plantIndex]);
     }
 
     void Update()
     {
-        //FOR TESTING PURPOSES
-            //NEEDS TO BE REPLACED WITH PLAYER COLLIDING WITH THE PLANTS WHILE HAVING THE WATERING CAN
-        if (Input.GetButtonDown("Fire1")) {
-            if (age == 0 && watered == 0) {
-                watered = 1;
-                status = 0;
-                Debug.Log("Amount of Times Watered: " + watered);
-            } else if (age == 2 && watered == 1) {
-                watered = 2;
-                status = 0;
-                Debug.Log("Amount of Times Watered: " + watered);
-            }
-        }
-       
-        Debug.Log("Status: " + status);
         updateIndicator(); //update indicator
         if (status == 3 && age == 5) { //edge case because of spaghetti code
             updateSprite();
         }
 
+        if (canPickup && Input.GetKeyDown ("e") && status == 2) {
+            pickup();
+        }
+
+        if (pickedUp) {
+            StartCoroutine(fadeOut(player.GetComponent<Player>().inventory.GetComponent<SpriteRenderer>(), 1f));
+            StartCoroutine(fadeOut(player.GetComponent<Player>().inventoryBackground.GetComponent<SpriteRenderer>(), 1f));
+            
+            harvestedCrop.transform.position = player.transform.position;
+        }
+
         //GROWTH CYCLE + TIMER
-        if (status != 3) { //if crop isn't dead
+        if (status != 3 && status != -1) { //if crop isn't dead
             updateSprite(); //works for all cases but not harvesting fast enough
             if (growTime > 0) { //if growTime greater than 0 keep counting down
                 growTime -= Time.deltaTime;
             } else { //when time runs out the plant ages & is replaced with a new image
                 age++;
-                Debug.Log("Current Age: " + age);
                 //CROP CHECKS
                 if ((age == 1 && watered == 0) || (age == 3 && watered == 1) || age == 5) //didn't get watered or harvested
                     status = 3;
@@ -102,6 +113,75 @@ public class Crop : MonoBehaviour
         } else if (status == 3) {
             indicator.SetActive(true); //show trash indicator
             indicatorSprite.sprite = indicatorImages[2];
+        } else {
+            indicator.SetActive(false);
         }
     }
+
+    private void pickup() {
+        player.GetComponent<Player>().holdingItem = true;
+        player.GetComponent<Player>().item = possibleHarvest[plantIndex];
+        player.GetComponent<Player>().inventory.GetComponent<SpriteRenderer>().sprite = possibleHarvest[plantIndex].image;
+        
+        player.GetComponent<Player>().inventory.SetActive(true);
+        player.GetComponent<Player>().inventoryBackground.SetActive(true);
+
+        //REPLACE WITH CHANGING IMAGE BACK TO DIRT THAT IS READY TO BE PLANTED IN
+        harvestedCrop = Instantiate(item);
+        harvestedCrop.GetComponent<ItemInteraction>().item = possibleHarvest[plantIndex];
+        harvestedCrop.GetComponent<SpriteRenderer>().sprite = harvestedCrop.GetComponent<ItemInteraction>().item.image;
+        harvestedCrop.GetComponent<ItemInteraction>().player = player;
+        harvestedCrop.GetComponent<SpriteRenderer>().enabled = false;
+
+        pickedUp = true;
+        canPlant = true;
+        status = -1;
+    }
+
+    IEnumerator fadeOut(SpriteRenderer MyRenderer, float duration) {
+        float counter = 0;
+        Color spriteColor = MyRenderer.material.color;
+        while (counter < duration) {
+            counter += Time.deltaTime;
+            float alpha = Mathf.Lerp(1, 0, counter / duration);
+            MyRenderer.color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
+            yield return null;
+        }
+
+        //Destroy(gameObject);
+    }    
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.name.Equals("Player") && player.GetComponent<Player>().holdingItem) {
+            if (player.GetComponent<Player>().item.name == "Watering Can") {
+                if (age == 0 && watered == 0) {
+                    watered = 1;
+                    status = 0;
+                    Debug.Log("Amount of Times Watered: " + watered);
+                } else if (age == 2 && watered == 1) {
+                    watered = 2;
+                    status = 0;
+                    Debug.Log("Amount of Times Watered: " + watered);
+                }
+            }
+        }
+
+        if (collision.gameObject.name.Equals("Player") && !player.GetComponent<Player>().holdingItem && status == 2) {
+            Debug.Log("Player can harvest");
+            activator.SetActive(true);
+            canPickup = true;
+        }
+
+        // if (collision.gameObject.name.Equals("Player") && player.GetComponent<Player>().holdingItem && player.GetComponent<Player>().item.canBePlanted && status == -1) {
+        //     activator.SetActive(true);
+        //     canPlant = true;
+        // }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.name.Equals("Player")) {
+            activator.SetActive(false);
+            canPickup = false;
+        }
+    }    
 }

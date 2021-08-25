@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: Tomelone
   m_EditorClassIdentifier: 
   name: Tomelone
-  cost: 4
-  sellPrice: 12
   growthImages:
-  - {fileID: 6602904335023042884, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: -6916619383433972586, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: 1775722823711571458, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: -1068550322693208863, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: -3015079631202472666, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: 6015048091281414335, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  harvestedImage: {fileID: 6115169698378623702, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
+  - {fileID: 6602904335023042884, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: -6916619383433972586, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: 1775722823711571458, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: -1068550322693208863, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: -3015079631202472666, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: 6015048091281414335, guid: 63620028e7fc07b46b88eb833090217b, type: 3}

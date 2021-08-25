@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: Peanks
   m_EditorClassIdentifier: 
   name: Peanks
-  cost: 3
-  sellPrice: 8
   growthImages:
-  - {fileID: 733891586448964232, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: 1495184152694329054, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: 8153876137238806391, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: 8566593946592379460, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: -2846963833402037377, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: 1107896516749288863, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  harvestedImage: {fileID: 1053015898683254747, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
+  - {fileID: 733891586448964232, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: 1495184152694329054, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: 8153876137238806391, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: 8566593946592379460, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: -2846963833402037377, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: 1107896516749288863, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
