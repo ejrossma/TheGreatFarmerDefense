@@ -16,13 +16,12 @@ MonoBehaviour:
   description: Plant these seeds and use water to grow Corrato plants.
   cost: 0
   sellPrice: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 08f770f342a877044bf6c4ab4e3ebb96, type: 3}
   canAttack: 0
-  canBePlanted: 0
+  canBePlanted: 1
   canBeSold: 0
   canBePurchased: 0
   canKillCrop: 0
   canWater: 0
   harvestCrop: 0
-  seedStorage: 0
-  harvestStorage: 0
+  plantType: {fileID: 11400000, guid: 8d0437c2a3b98cd42bd7d700017fa78d, type: 2}

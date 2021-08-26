@@ -16,13 +16,12 @@ MonoBehaviour:
   description: Plant these seeds and use water to grow Peanks plants.
   cost: 0
   sellPrice: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 0c25cbe51ec758f44abf15004585e131, type: 3}
   canAttack: 0
-  canBePlanted: 0
+  canBePlanted: 1
   canBeSold: 0
   canBePurchased: 0
   canKillCrop: 0
   canWater: 0
   harvestCrop: 0
-  seedStorage: 0
-  harvestStorage: 0
+  plantType: {fileID: 11400000, guid: da22ee38ad8161d4fb056b5f00d90dc2, type: 2}

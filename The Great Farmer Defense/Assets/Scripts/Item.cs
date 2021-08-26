@@ -17,13 +17,5 @@ public class Item : ScriptableObject
     public bool canKillCrop; //farm tools
     public bool canWater; //watering bucket
     public bool harvestCrop; //harvested crop
-    public bool seedStorage; //holds infinite seeds
-    public bool harvestStorage; //holds harvested crops
-
-    private int waterLevel; //for watering bucket, goes up to 10, each plant watered takes 1
-    
-    //only apply if harvestStorage == true
-    private int plantAmount; //how many harvested crops are being held
-    //only applies if harvestCrop == true or harvestStorage == true
-    private Plant plantType; //for selling plants 1 at a time or with collecting bin
+    public Plant plantType; //for knowing which seeds are which plant type
 }
