@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Peanks
   description: 
   cost: 0
-  sellPrice: 0
+  sellPrice: 2
   image: {fileID: 1053015898683254747, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
   canAttack: 0
   canBePlanted: 0
@@ -24,5 +24,4 @@ MonoBehaviour:
   canKillCrop: 0
   canWater: 0
   harvestCrop: 1
-  seedStorage: 0
-  harvestStorage: 0
+  plantType: {fileID: 0}

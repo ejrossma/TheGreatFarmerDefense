@@ -16,6 +16,7 @@ public class Crop : MonoBehaviour
     private GameObject harvestedCrop;
     private bool canPlant;
     private bool canPickup; //for harvesting the plant
+    private bool canDestroy;
     private float growTime; //adjustable timer for each growth stage
     private float harvestTime; //how long plant takes to die
     private float growInterval; //interval in between each growth
@@ -60,6 +61,11 @@ public class Crop : MonoBehaviour
             plant();   
         }
 
+        if (canDestroy && Input.GetKeyDown ("e")) {
+            Debug.Log("Destroyed Dead Crop");
+            destroy();
+        }
+
         //GROWTH CYCLE + TIMER
         if (status != 3 && status != -1 && age < 6) { //if crop isn't dead or doesn't need seeds
             updateSprite(); //works for all cases but not harvesting fast enough
@@ -86,6 +92,7 @@ public class Crop : MonoBehaviour
 /////////////////////////////////////////////////////////////////////////
 
     private void OnTriggerEnter2D(Collider2D collision) {
+        //WATERING CROP
         if (collision.gameObject.name.Equals("Player") && pScript.holdingItem) {
             if (pScript.item.name == "Watering Can") {
                 if (age == 0 && watered == 0) {
@@ -99,17 +106,23 @@ public class Crop : MonoBehaviour
                 }
             }
         }
-
+        //HARVESTING CROP
         if (collision.gameObject.name.Equals("Player") && !pScript.holdingItem && status == 2) {
             Debug.Log("Player can harvest");
             activator.SetActive(true);
             canPickup = true;
         }
-
+        //PLANTING CROP
         if (collision.gameObject.name.Equals("Player") && pScript.holdingItem && pScript.item.canBePlanted && status == -1) {
             Debug.Log("Player can Plant");
             activator.SetActive(true);
             canPlant = true;
+        }
+        //REMOVING DEAD CROP
+        if (collision.gameObject.name.Equals("Player")  && pScript.holdingItem && pScript.item.canKillCrop && status == 3) {
+            Debug.Log("Player can Destroy Crop");
+            activator.SetActive(true);
+            canDestroy = true;
         }
     }
 
@@ -185,6 +198,14 @@ public class Crop : MonoBehaviour
 
         //HANDLE PLAYERS SIDE OF IT
         pScript.plant();
+    }
+
+    private void destroy() {
+        status = -1;
+        age = -1;
+        watered = 0;
+        activator.SetActive(false);
+        updateSprite();
     }
 
     IEnumerator fadeOut(SpriteRenderer MyRenderer, float duration) {

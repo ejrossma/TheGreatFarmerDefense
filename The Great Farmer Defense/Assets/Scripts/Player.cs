@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public bool holdingItem;
     public bool justPickedUpItem;
 
+    [SerializeField] int money;
+
     void Start()
     {
         holdingItem = false;
@@ -82,6 +84,7 @@ public class Player : MonoBehaviour
         holdingItem = false;
         //update item & change indicator image
         item = null;
+        itemObj = null;
         inventory.GetComponent<SpriteRenderer>().sprite = null;
     }
 
@@ -89,8 +92,19 @@ public class Player : MonoBehaviour
         Debug.Log("Player Script Planting:" + item.name);
         holdingItem = false;
         item = null;
-        inventory.GetComponent<SpriteRenderer>().sprite = null;
         Destroy(itemObj);
+        itemObj = null;
+        inventory.GetComponent<SpriteRenderer>().sprite = null;
+    }
+
+    public void sell() {
+        Debug.Log("Item Sold: " + item.name);
+        money += item.sellPrice;
+        holdingItem = false;
+        item = null;
+        Destroy(itemObj);
+        itemObj = null;
+        inventory.GetComponent<SpriteRenderer>().sprite = null;
     }
 
     IEnumerator fadeOut(SpriteRenderer MyRenderer, float duration) {
