@@ -126,6 +126,8 @@ MonoBehaviour:
   activator: {fileID: 3467046115427181870}
   player: {fileID: 0}
   item: {fileID: 0}
+  pickedUp: 0
+  itemToInstantiate: {fileID: 3467046115085536666}
 --- !u!1 &3467046115427181870
 GameObject:
   m_ObjectHideFlags: 0

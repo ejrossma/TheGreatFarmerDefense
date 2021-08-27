@@ -263,16 +263,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c7d948438b7ea44aac870f8382cfba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleHarvest: []
+  possibleHarvest:
+  - {fileID: 11400000, guid: 084c558a102948e4b86716567f33b915, type: 2}
+  - {fileID: 11400000, guid: 0930bf0f2074b0645b7e3319ca51991e, type: 2}
+  - {fileID: 11400000, guid: cf469aa6c5632f541aecbadabcfe9bea, type: 2}
   indicatorImages:
   - {fileID: 21300000, guid: 3e5faf1b57b3f6841a4ae108edb8e478, type: 3}
   - {fileID: 21300000, guid: 1be8aa2a8d1ecb7458963fa001299672, type: 3}
   - {fileID: 21300000, guid: 98b13e97fdd942543bcc531f87cb1889, type: 3}
   - {fileID: 21300000, guid: c7045443bea0a1d43a8c5490ca6178f0, type: 3}
+  seedPlantedImage: {fileID: 21300000, guid: 3f92b3ef05aa2304aa78b5d2bf824f12, type: 3}
   indicator: {fileID: 5149608141400230475}
   player: {fileID: 0}
   activator: {fileID: 2509706437253779298}
-  item: {fileID: 0}
+  item: {fileID: 3467046115085536666, guid: b45c2788f72b39441813049dd47ec1a6, type: 3}
 --- !u!61 &3195348819584197342
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -283,7 +287,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.03174779, y: -0.09498119}
@@ -324,7 +328,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8670902959432539181}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.025228173, y: -0.20628814, z: 0}
+  m_LocalPosition: {x: 0.025228173, y: -0.20628814, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5149608141855571815}

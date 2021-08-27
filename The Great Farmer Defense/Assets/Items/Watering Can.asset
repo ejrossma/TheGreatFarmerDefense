@@ -25,5 +25,7 @@ MonoBehaviour:
   canKillCrop: 0
   canWater: 1
   harvestCrop: 0
-  seedStorage: 0
-  harvestStorage: 0
+  plantType: {fileID: 0}
+  storage: 0
+  seedType: {fileID: 0}
+  pickupable: 1

@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee1c1dc9ce7ccf14c8a4dd06545b1a4c, type: 3}
-  m_Name: Peanks Seeds
+  m_Name: Carroto Barrel
   m_EditorClassIdentifier: 
-  name: Peanks Seeds
-  description: Plant these seeds and use water to grow Peanks plants.
+  name: Carroto Barrel
+  description: 
   cost: 0
   sellPrice: 0
-  image: {fileID: 21300000, guid: 0c25cbe51ec758f44abf15004585e131, type: 3}
+  image: {fileID: 21300000, guid: 9206b4bf14e5657459d49af490873edf, type: 3}
   canAttack: 0
-  canBePlanted: 1
+  canBePlanted: 0
   canBeSold: 0
   canBePurchased: 0
   canKillCrop: 0
   canWater: 0
   harvestCrop: 0
-  plantType: {fileID: 11400000, guid: da22ee38ad8161d4fb056b5f00d90dc2, type: 2}
-  storage: 0
-  seedType: {fileID: 0}
-  pickupable: 1
+  plantType: {fileID: 0}
+  storage: 1
+  seedType: {fileID: 11400000, guid: e39a84c21cbdfad47959212a0b70218b, type: 2}
+  pickupable: 0

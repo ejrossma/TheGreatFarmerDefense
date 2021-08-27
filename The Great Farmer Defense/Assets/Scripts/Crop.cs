@@ -7,6 +7,7 @@ public class Crop : MonoBehaviour
 {
     public Item[] possibleHarvest;
     public Sprite[] indicatorImages;
+    public Sprite seedPlantedImage;
     public GameObject indicator;
     public GameObject player;
     public GameObject activator;
@@ -139,7 +140,9 @@ public class Crop : MonoBehaviour
 /////////////////////////////////////////////////////////////////////////
 
     void updateSprite() {
-        if (age == -1) {
+        if (age == -1 && status == 0) {
+            plantSprite.sprite = seedPlantedImage;
+        } else if (age == -1 && status == -1){
             plantSprite.sprite = null;
         } else {
             plantSprite.sprite = currentPlant.growthImages[age]; //update plant image
@@ -195,6 +198,7 @@ public class Crop : MonoBehaviour
         //HANDLE CROP SIDE
         currentPlant = pScript.item.plantType; //set plant to right type
         status = 0; //change to status 0 so the indicator goes away for seeds and it starts growing
+        activator.SetActive(false);
 
         //HANDLE PLAYERS SIDE OF IT
         pScript.plant();

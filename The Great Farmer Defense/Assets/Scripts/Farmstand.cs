@@ -6,15 +6,29 @@ public class Farmstand : MonoBehaviour
 {
     public GameObject player;
     public GameObject activator;
+    public GameObject indicator;
 
     private bool canSell;
     private Player pScript;
+    private Vector3 startPosition;
+    private Vector3 temp;
+    private bool fadeComplete;
+    private bool justSold;
+    private bool move;
 
     // Start is called before the first frame update
     void Start()
     {
+        fadeComplete = false;
+        startPosition = indicator.transform.position;
+        Debug.Log("Start Position: " + startPosition);
         pScript = player.GetComponent<Player>();
         activator.SetActive(false);
+        move = false;
+        temp = new Vector3(indicator.transform.position.x, indicator.transform.position.y + 2, indicator.transform.position.z);
+        indicator.SetActive(false);
+        justSold = false;
+        
     }
 
     // Update is called once per frame
@@ -22,8 +36,26 @@ public class Farmstand : MonoBehaviour
     {
         if (canSell && Input.GetKeyDown ("e")) {
             pScript.sell();
+            indicator.SetActive(true);
+            justSold = true;
             activator.SetActive(false);
         }
+
+        if (justSold) {
+            indicator.transform.position = startPosition;
+            StartCoroutine(fadeOutAndMove(indicator.GetComponent<SpriteRenderer>(),  1f));
+            justSold = false;
+        }
+        if (!fadeComplete && move) {
+            indicator.transform.position = Vector3.MoveTowards(indicator.transform.position, temp, 0.002f);
+        }
+
+
+        if (Vector3.Distance(indicator.transform.position, temp) < 0.01f && fadeComplete) {
+            indicator.transform.position = startPosition;
+            fadeComplete = false;
+        }
+            
     }
 
 /////////////////////////////////////////////////////////////////////////
@@ -42,4 +74,19 @@ public class Farmstand : MonoBehaviour
             canSell = false;
         }
     }
+
+    IEnumerator fadeOutAndMove(SpriteRenderer MyRenderer, float duration) {
+        float counter = 0;
+        Color spriteColor = MyRenderer.material.color;
+        move = true;
+        while (counter < duration) {
+            counter += Time.deltaTime;
+            float alpha = Mathf.Lerp(1, 0, counter / duration);
+            MyRenderer.color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
+            yield return null;
+        }
+        Debug.Log("Fade Complete");
+        fadeComplete = true;
+    }
+
 }

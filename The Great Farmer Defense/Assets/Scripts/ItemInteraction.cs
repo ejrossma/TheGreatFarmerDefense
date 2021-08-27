@@ -8,13 +8,17 @@ public class ItemInteraction : MonoBehaviour
     public GameObject player;
     public Item item;
     private bool canPickup;
+    private bool canTakeFromStorage;
     public bool pickedUp;
+
+    public GameObject itemToInstantiate;
 
     private Player pScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        canTakeFromStorage = false;
         pScript = player.GetComponent<Player>();
         activator.SetActive(false);
         canPickup = false;
@@ -34,6 +38,10 @@ public class ItemInteraction : MonoBehaviour
             Debug.Log("Item Being Dropped: " + item);
             drop();
         }
+        if (canTakeFromStorage && Input.GetKeyDown ("e")) {
+            Debug.Log("Taking From Storage");
+            takeFromStorage();
+        }
     }
 
 /////////////////////////////////////////////////////////////////////////
@@ -41,15 +49,21 @@ public class ItemInteraction : MonoBehaviour
 /////////////////////////////////////////////////////////////////////////
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.name.Equals("Player") && pScript.holdingItem == false) {
+        if (collision.gameObject.name.Equals("Player") && pScript.holdingItem == false && item.pickupable) {
             activator.SetActive(true);
             canPickup = true;
+        }
+
+        if (collision.gameObject.name.Equals("Player") && item.storage && !pScript.holdingItem) {
+            activator.SetActive(true);
+            canTakeFromStorage = true;
         }
     }
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.gameObject.name.Equals("Player")) {
             activator.SetActive(false);
             canPickup = false;
+            canTakeFromStorage = false;
         }
     }
 
@@ -74,5 +88,19 @@ public class ItemInteraction : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = item.image;
         GetComponent<SpriteRenderer>().enabled = true;
         activator.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    private void takeFromStorage() {
+        //instantiate seed to be given to the player
+        GameObject temp = Instantiate(itemToInstantiate);
+        temp.GetComponent<ItemInteraction>().item = item.seedType;
+        temp.GetComponent<ItemInteraction>().player = player;
+        temp.GetComponent<ItemInteraction>().pickedUp = true;
+        temp.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<ItemInteraction>().item.image;
+        temp.GetComponent<SpriteRenderer>().enabled = false;
+
+        activator.SetActive(false);
+
+        pScript.pickup(temp);
     }
 }
