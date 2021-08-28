@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Corrato
   description: 
   cost: 0
-  sellPrice: 5
+  sellPrice: 20
   image: {fileID: -2213228658277688645, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
   canAttack: 0
   canBePlanted: 0

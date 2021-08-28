@@ -18,7 +18,7 @@ public class TimeRemaining : MonoBehaviour
     }
 
     public void setTime() {
-        float temp = GameManager.timeRemainingInDay/5;
+        float temp = GameManager.timeRemainingInDay/90;
         slider.value = temp;
     }
 }

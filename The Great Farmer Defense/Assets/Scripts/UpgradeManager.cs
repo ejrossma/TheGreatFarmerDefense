@@ -132,7 +132,7 @@ public class UpgradeManager : MonoBehaviour
     
     public void confirm() {
         Player.money -= price;
-        GameManager.timeRemainingInDay = 5f;
+        GameManager.timeRemainingInDay = 90f;
         GameManager.currentDay++;
         gameObject.SetActive(false);
     }

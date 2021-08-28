@@ -78,9 +78,9 @@ public class Crop : MonoBehaviour
                     status = 1;
                 if (age == 4) { //crop ready to be harvested
                     status = 2;
-                    growTime = harvestTime;
+                    growTime = harvestTime + (Player.wateringCanLVL * 2);
                 } else
-                    growTime = growInterval;
+                    growTime = growInterval - Player.wateringCanLVL;
             }
         }
     }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float maxSpeed;
-    public float acceleration;
     public GameObject inventory;
     public GameObject inventoryBackground;
 
@@ -25,8 +23,13 @@ public class Player : MonoBehaviour
     static public bool peanks;
     static public bool tomelone;
 
+    private float maxSpeed;
+    private float acceleration;
+
     void Start()
     {
+        maxSpeed = 2;
+        acceleration = 0.1f;
         carroto = true;
         peanks = false;
         tomelone = false;
@@ -55,19 +58,19 @@ public class Player : MonoBehaviour
         Vector3 pos = transform.position;
 
         if (Input.GetKey (KeyCode.UpArrow)) {
-            if (speed < maxSpeed)
+            if (speed < maxSpeed + Player.runningShoesLVL)
                 speed += acceleration;           
             pos.y += speed * Time.deltaTime;
         } else if (Input.GetKey (KeyCode.DownArrow)) {
-            if (speed < maxSpeed)
+            if (speed < maxSpeed + Player.runningShoesLVL)
                 speed += acceleration;
             pos.y -= speed * Time.deltaTime;
         } else if (Input.GetKey (KeyCode.RightArrow)) {
-            if (speed < maxSpeed)
+            if (speed < maxSpeed + Player.runningShoesLVL)
                 speed += acceleration;
             pos.x += speed * Time.deltaTime;
         } else if (Input.GetKey (KeyCode.LeftArrow)) {
-            if (speed < maxSpeed)
+            if (speed < maxSpeed + Player.runningShoesLVL)
                 speed += acceleration; 
             pos.x -= speed * Time.deltaTime;
         }
@@ -109,9 +112,9 @@ public class Player : MonoBehaviour
     }
 
     public void sell() {
-        money += item.sellPrice;
-        GameManager.moneyEarnedToday += item.sellPrice;
-        GameManager.moneyEarned += item.sellPrice;
+        money += calculatePrice(item.sellPrice);
+        GameManager.moneyEarnedToday += calculatePrice(item.sellPrice);;
+        GameManager.moneyEarned += calculatePrice(item.sellPrice);;
         holdingItem = false;
         item = null;
         Destroy(itemObj);
@@ -119,6 +122,19 @@ public class Player : MonoBehaviour
         inventory.GetComponent<SpriteRenderer>().sprite = null;
         GameManager.cropsSold++;
         GameManager.cropsSoldToday++;
+    }
+
+    private int calculatePrice(int value) {
+        if (Player.seedQualityLVL == 0) {
+            return value / 2;
+        } else if (Player.seedQualityLVL == 1) {
+            return value;
+        } else if (Player.seedQualityLVL == 2) {
+            return value + (value / 2);
+        } else if (Player.seedQualityLVL == 3) {
+            return value * 2;
+        }
+        return 0;
     }
 
     IEnumerator fadeOut(SpriteRenderer MyRenderer, float duration) {

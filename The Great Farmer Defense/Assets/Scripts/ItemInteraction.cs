@@ -92,12 +92,14 @@ public class ItemInteraction : MonoBehaviour
 /////////////////////////////////////////////////////////////////////////
 
     private void pickup() {
-        //handle player's side
-        pScript.pickup(gameObject);
-        //handle item's side
-        GetComponent<SpriteRenderer>().enabled = false;
-        activator.GetComponent<SpriteRenderer>().enabled = false;
-        pickedUp = true;
+        if (!pScript.holdingItem) {
+            //handle player's side
+            pScript.pickup(gameObject);
+            //handle item's side
+            GetComponent<SpriteRenderer>().enabled = false;
+            activator.GetComponent<SpriteRenderer>().enabled = false;
+            pickedUp = true;
+        }
     }
 
     private void drop() {
