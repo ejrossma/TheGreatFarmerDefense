@@ -32,14 +32,14 @@ public class Crop : MonoBehaviour
 
     void Start() {
         pScript = player.GetComponent<Player>();
-        harvestTime = 10;
-        growInterval = 5;
+        growTime = 15; //when first planted takes long to sprout
+        harvestTime = 15;
+        growInterval = 8;
         indicatorSprite = indicator.GetComponent<SpriteRenderer>();
         age = -1;
         watered = 0; //hasnt been watered yet
         status = -1; //starts out without a seed
         plantSprite = gameObject.GetComponent<SpriteRenderer>();
-        growTime = growInterval;
         canPickup = false;
         activator.SetActive(false);
     }
@@ -54,16 +54,13 @@ public class Crop : MonoBehaviour
         //PLAYER CAN HARVEST
         if (canPickup && Input.GetKeyDown ("e") && status == 2) {
             pickup();
-            Debug.Log("Item Being Picked Up: " + harvestedCrop.GetComponent<ItemInteraction>().item);
         }
 
         if (canPlant && Input.GetKeyDown ("e")) {
-            Debug.Log("Planted " + pScript.item.name);
             plant();   
         }
 
         if (canDestroy && Input.GetKeyDown ("e")) {
-            Debug.Log("Destroyed Dead Crop");
             destroy();
         }
 
@@ -99,29 +96,24 @@ public class Crop : MonoBehaviour
                 if (age == 0 && watered == 0) {
                     watered = 1;
                     status = 0;
-                    Debug.Log("Amount of Times Watered: " + watered);
                 } else if (age == 2 && watered == 1) {
                     watered = 2;
                     status = 0;
-                    Debug.Log("Amount of Times Watered: " + watered);
                 }
             }
         }
         //HARVESTING CROP
         if (collision.gameObject.name.Equals("Player") && !pScript.holdingItem && status == 2) {
-            Debug.Log("Player can harvest");
             activator.SetActive(true);
             canPickup = true;
         }
         //PLANTING CROP
         if (collision.gameObject.name.Equals("Player") && pScript.holdingItem && pScript.item.canBePlanted && status == -1) {
-            Debug.Log("Player can Plant");
             activator.SetActive(true);
             canPlant = true;
         }
         //REMOVING DEAD CROP
         if (collision.gameObject.name.Equals("Player")  && pScript.holdingItem && pScript.item.canKillCrop && status == 3) {
-            Debug.Log("Player can Destroy Crop");
             activator.SetActive(true);
             canDestroy = true;
         }

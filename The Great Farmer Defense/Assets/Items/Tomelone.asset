@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Tomelone
   description: 
   cost: 0
-  sellPrice: 3
+  sellPrice: 25
   image: {fileID: 6115169698378623702, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
   canAttack: 0
   canBePlanted: 0
@@ -28,3 +28,4 @@ MonoBehaviour:
   storage: 0
   seedType: {fileID: 0}
   pickupable: 1
+  filled: 0

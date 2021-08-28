@@ -24,9 +24,10 @@ public class ManagementManager : MonoBehaviour
     public GameObject priceText;
     private int price;
     public GameObject moneyText;
-    private int money;
 
     public GameObject confirmButton;
+
+    public GameObject canvas;
 
     // Start is called before the first frame update
     void Start()
@@ -35,23 +36,25 @@ public class ManagementManager : MonoBehaviour
         peanksQuantity = 0;
         tomeloneQuantity = 0;
 
-        money = 250;
-        string temp = "Money: " + money;
+        string temp = "Money:" + Player.money;
         moneyText.GetComponent<Text>().text = temp; 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (money >= price && (carrotoQuantity + peanksQuantity + tomeloneQuantity) > 0) {
+        if (Player.money >= price && (carrotoQuantity + peanksQuantity + tomeloneQuantity) > 0) {
             confirmButton.SetActive(true);
         } else {
             confirmButton.SetActive(false);
         }
 
         price = (carrotoQuantity * 50) + (peanksQuantity * 100) + (tomeloneQuantity * 200);
-        string temp = "Price: " + price;
+        string temp = "Price:" + price;
         priceText.GetComponent<Text>().text = temp;
+
+        string temp2 = "Money:" + Player.money;
+        moneyText.GetComponent<Text>().text = temp2; 
 
         if (carrotoQuantity == 1) {
             carrotoPlus.SetActive(false);
@@ -118,9 +121,24 @@ public class ManagementManager : MonoBehaviour
     }
 
     public void confirm() {
-        Debug.Log("Confirmed Purchase");
-        //change to next scene
-        //subtract from player's money
-        //give player the right barrels
+        Player.money -= price;
+        if (carrotoQuantity == 1)
+            Player.carroto = true;
+        if (peanksQuantity == 1)
+            Player.peanks = true;
+        if (tomeloneQuantity == 1)
+            Player.tomelone = true;
+        //change canvas to show game again
+        tomeloneQuantity = 0;
+        peanksQuantity = 0;
+        carrotoQuantity = 0;
+        string temp = "" + peanksQuantity;
+        peanksQuantityText.GetComponent<Text>().text = temp;
+        temp = "" + tomeloneQuantity;
+        tomeloneQuantityText.GetComponent<Text>().text = temp;
+        temp = "" + carrotoQuantity;
+        carrotoQuantityText.GetComponent<Text>().text = temp;
+
+        canvas.SetActive(false);
     }
 }

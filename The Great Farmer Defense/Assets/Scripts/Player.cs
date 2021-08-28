@@ -15,14 +15,30 @@ public class Player : MonoBehaviour
     public bool holdingItem;
     public bool justPickedUpItem;
 
-    [SerializeField] int money;
+    static public int money;
+    static public int runningShoesLVL;
+    static public int seedQualityLVL;
+    static public int wateringCanLVL;
+
+    //if player purchases a barrel they are true else false
+    static public bool carroto;
+    static public bool peanks;
+    static public bool tomelone;
 
     void Start()
     {
+        carroto = true;
+        peanks = false;
+        tomelone = false;
         holdingItem = false;
         speed = 0;
         justPickedUpItem = false;
         item = null;
+
+        runningShoesLVL = 0;
+        seedQualityLVL = 0;
+        wateringCanLVL = 0;
+        money = 1000;
     }
 
     void Update()
@@ -38,22 +54,19 @@ public class Player : MonoBehaviour
         //MOVEMENT CODE
         Vector3 pos = transform.position;
 
-        if (Input.GetKey ("w")) {
+        if (Input.GetKey (KeyCode.UpArrow)) {
             if (speed < maxSpeed)
                 speed += acceleration;           
             pos.y += speed * Time.deltaTime;
-        }
-        if (Input.GetKey ("s")) {
+        } else if (Input.GetKey (KeyCode.DownArrow)) {
             if (speed < maxSpeed)
                 speed += acceleration;
             pos.y -= speed * Time.deltaTime;
-        }
-        if (Input.GetKey ("d")) {
+        } else if (Input.GetKey (KeyCode.RightArrow)) {
             if (speed < maxSpeed)
                 speed += acceleration;
             pos.x += speed * Time.deltaTime;
-        }
-        if (Input.GetKey ("a")) {
+        } else if (Input.GetKey (KeyCode.LeftArrow)) {
             if (speed < maxSpeed)
                 speed += acceleration; 
             pos.x -= speed * Time.deltaTime;
@@ -79,7 +92,6 @@ public class Player : MonoBehaviour
     }
 
     public void drop() {
-        Debug.Log("Player Script Item Being Dropped: " + item);
         //player is no longer holding item
         holdingItem = false;
         //update item & change indicator image
@@ -89,7 +101,6 @@ public class Player : MonoBehaviour
     }
 
     public void plant() {
-        Debug.Log("Player Script Planting:" + item.name);
         holdingItem = false;
         item = null;
         Destroy(itemObj);
@@ -98,13 +109,16 @@ public class Player : MonoBehaviour
     }
 
     public void sell() {
-        Debug.Log("Item Sold: " + item.name);
         money += item.sellPrice;
+        GameManager.moneyEarnedToday += item.sellPrice;
+        GameManager.moneyEarned += item.sellPrice;
         holdingItem = false;
         item = null;
         Destroy(itemObj);
         itemObj = null;
         inventory.GetComponent<SpriteRenderer>().sprite = null;
+        GameManager.cropsSold++;
+        GameManager.cropsSoldToday++;
     }
 
     IEnumerator fadeOut(SpriteRenderer MyRenderer, float duration) {

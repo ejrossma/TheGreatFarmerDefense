@@ -21,11 +21,10 @@ public class Farmstand : MonoBehaviour
     {
         fadeComplete = false;
         startPosition = indicator.transform.position;
-        Debug.Log("Start Position: " + startPosition);
         pScript = player.GetComponent<Player>();
         activator.SetActive(false);
         move = false;
-        temp = new Vector3(indicator.transform.position.x, indicator.transform.position.y + 2, indicator.transform.position.z);
+        temp = new Vector3(indicator.transform.position.x, indicator.transform.position.y + 4, indicator.transform.position.z);
         indicator.SetActive(false);
         justSold = false;
         
@@ -43,17 +42,20 @@ public class Farmstand : MonoBehaviour
 
         if (justSold) {
             indicator.transform.position = startPosition;
+            fadeComplete = false;
+            move = false;
             StartCoroutine(fadeOutAndMove(indicator.GetComponent<SpriteRenderer>(),  1f));
             justSold = false;
         }
         if (!fadeComplete && move) {
-            indicator.transform.position = Vector3.MoveTowards(indicator.transform.position, temp, 0.002f);
+            indicator.transform.position = Vector3.MoveTowards(indicator.transform.position, temp, 0.004f);
         }
 
 
-        if (Vector3.Distance(indicator.transform.position, temp) < 0.01f && fadeComplete) {
+        if (Vector3.Distance(indicator.transform.position, temp) < 0.1f && fadeComplete) {
             indicator.transform.position = startPosition;
             fadeComplete = false;
+            move = false;
         }
             
     }
@@ -85,7 +87,6 @@ public class Farmstand : MonoBehaviour
             MyRenderer.color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
             yield return null;
         }
-        Debug.Log("Fade Complete");
         fadeComplete = true;
     }
 

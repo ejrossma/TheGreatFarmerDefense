@@ -23,4 +23,5 @@ public class Item : ScriptableObject
     public bool storage;
     public Item seedType;
     public bool pickupable;
+    public bool filled;
 }

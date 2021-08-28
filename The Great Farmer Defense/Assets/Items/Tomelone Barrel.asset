@@ -24,7 +24,8 @@ MonoBehaviour:
   canKillCrop: 0
   canWater: 0
   harvestCrop: 0
-  plantType: {fileID: 0}
+  plantType: {fileID: 11400000, guid: 2b69bca4c06d7f34a994ef03c50004d0, type: 2}
   storage: 1
   seedType: {fileID: 11400000, guid: ab8c06e781ed4834e92435236e467e6f, type: 2}
   pickupable: 0
+  filled: 0

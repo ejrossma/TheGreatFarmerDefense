@@ -10,6 +10,7 @@ public class ItemInteraction : MonoBehaviour
     private bool canPickup;
     private bool canTakeFromStorage;
     public bool pickedUp;
+    public Sprite emptyImage;
 
     public GameObject itemToInstantiate;
 
@@ -31,16 +32,35 @@ public class ItemInteraction : MonoBehaviour
             transform.position = player.transform.position;
         }
         if (canPickup && Input.GetKeyDown ("e") && !pScript.holdingItem) {
-            Debug.Log("Item Being Picked Up: " + item);
             pickup();
         }
         if (pScript.holdingItem && Input.GetKeyDown("q") && transform.position == pScript.transform.position) {
-            Debug.Log("Item Being Dropped: " + item);
             drop();
         }
         if (canTakeFromStorage && Input.GetKeyDown ("e")) {
-            Debug.Log("Taking From Storage");
             takeFromStorage();
+        }
+
+        //check if item.filled needs be updated
+        if (item.storage && item.name == "Carroto Barrel" && Player.carroto)
+            item.filled = true;
+        else if (item.storage && item.name == "Carroto Barrel" && !Player.carroto)
+            item.filled = false;
+
+        if (item.storage && item.name == "Peanks Barrel" && Player.peanks)
+            item.filled = true;
+        else if (item.storage && item.name == "Peanks Barrel" && !Player.peanks)
+            item.filled = false;
+
+        if (item.storage && item.name == "Tomelone Barrel" && Player.tomelone)
+            item.filled = true;
+        else if (item.storage && item.name == "Tomelone Barrel" && !Player.tomelone)
+            item.filled = false;
+
+        if (item.storage && item.filled) {
+            GetComponent<SpriteRenderer>().sprite = item.image;
+        } else if (item.storage && !item.filled) {
+            GetComponent<SpriteRenderer>().sprite = emptyImage;
         }
     }
 
@@ -54,7 +74,7 @@ public class ItemInteraction : MonoBehaviour
             canPickup = true;
         }
 
-        if (collision.gameObject.name.Equals("Player") && item.storage && !pScript.holdingItem) {
+        if (collision.gameObject.name.Equals("Player") && item.storage && !pScript.holdingItem && item.filled) {
             activator.SetActive(true);
             canTakeFromStorage = true;
         }
