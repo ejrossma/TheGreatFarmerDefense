@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject breakdown;
     public GameObject upgrade;
     public GameObject gameover;
+    public GameObject background;
     public GameObject dayText;
 
     public GameObject Management;
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject playerMoneyText;
 
+    public AudioSource ambiance;
+
     private bool justChanged;
     private bool postDay;
     private int currentCanvas; //0 = play, 1 = post day, 2 = seeds, 3 = upgrades, 4 = game over
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
         manageMan = Management.GetComponent<ManagementManager>();
         upMan = Upgrade.GetComponent<UpgradeManager>();
         pScript = player.GetComponent<Player>();
-        timeRemainingInDay = 90f;
+        timeRemainingInDay = 10f;
         currentCanvas = 0;
         currentDay = 1;
         canvas.SetActive(false);
@@ -59,20 +62,22 @@ public class GameManager : MonoBehaviour
             timeRemainingInDay -= Time.deltaTime;
             currentCanvas = 0;
             postDay = false;
+            ambiance.mute = false;
         } else if (!postDay) {
             Player.carroto = false;
             Player.peanks = false;
             Player.tomelone = false;
-            pScript.plant();
+            pScript.reset();
             currentCanvas = 1;
             postDay = true;
             justChanged = true;
+            ambiance.mute = true;
         }
 
         handleCanvas();
 
         dayText.GetComponent<Text>().text = "Day" + currentDay;
-        playerMoneyText.GetComponent<Text>().text = "Money:" + Player.money;
+        playerMoneyText.GetComponent<Text>().text = "" + Player.money;
     }
 
 
@@ -110,11 +115,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void gameOver() {
-        //show game over screen
-            //display:
-                //Days Survived
-                //Total Crops Sold
-                //Total Money Made
+        SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
     }
 
     public void setConfirmed() {

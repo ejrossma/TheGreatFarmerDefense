@@ -13,14 +13,15 @@ public class BreakdownManager : MonoBehaviour
     public Color gain;
     public Color loss;
 
-    void Start () {
-        gameObject.SetActive(false);
-    }
-
     public void setValues() {
         cropsSoldAmount.GetComponent<Text>().text = "" + GameManager.cropsSoldToday;
         moneyEarnedAmount.GetComponent<Text>().text = "" + GameManager.moneyEarnedToday;
-        float temp = Random.Range(2.0f, 3.0f);
+        float temp;
+        if (GameManager.currentDay < 4) {
+            temp = Random.Range(2.0f, 3.0f);
+        } else {
+            temp = Random.Range(3.0f, (float) GameManager.currentDay);
+        }
         temp *= 100;
         temp = Mathf.Floor(temp);
         billsAmount.GetComponent<Text>().text = "" + temp;

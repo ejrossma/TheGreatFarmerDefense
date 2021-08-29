@@ -202,6 +202,7 @@ public class Crop : MonoBehaviour
         watered = 0;
         activator.SetActive(false);
         updateSprite();
+        FindObjectOfType<AudioManager>().Play("Shovel");
     }
 
     IEnumerator fadeOut(SpriteRenderer MyRenderer, float duration) {

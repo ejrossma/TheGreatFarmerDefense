@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         runningShoesLVL = 0;
         seedQualityLVL = 0;
         wateringCanLVL = 0;
-        money = 1000;
+        money = 500;
     }
 
     void Update()
@@ -109,6 +109,16 @@ public class Player : MonoBehaviour
         Destroy(itemObj);
         itemObj = null;
         inventory.GetComponent<SpriteRenderer>().sprite = null;
+
+        FindObjectOfType<AudioManager>().Play("Plant");
+    }
+
+    public void reset() {
+        holdingItem = false;
+        item = null;
+        Destroy(itemObj);
+        itemObj = null;
+        inventory.GetComponent<SpriteRenderer>().sprite = null;
     }
 
     public void sell() {
@@ -122,6 +132,7 @@ public class Player : MonoBehaviour
         inventory.GetComponent<SpriteRenderer>().sprite = null;
         GameManager.cropsSold++;
         GameManager.cropsSoldToday++;
+        FindObjectOfType<AudioManager>().Play("Sell");
     }
 
     private int calculatePrice(int value) {
