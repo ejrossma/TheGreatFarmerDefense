@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: Corrato
   m_EditorClassIdentifier: 
   name: Corrato
-  cost: 2
-  sellPrice: 5
   growthImages:
-  - {fileID: 6645909779542991491, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: 7220517265686203865, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: 2475179445717388078, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: -4428051687643113153, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: 351906640709293403, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  - {fileID: -436678761845232878, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
-  harvestedImage: {fileID: -2213228658277688645, guid: c848df70ef91e7c45a49d026dc9e9675, type: 3}
+  - {fileID: 6645909779542991491, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: 7220517265686203865, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: 2475179445717388078, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: -4428051687643113153, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: 351906640709293403, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
+  - {fileID: -436678761845232878, guid: 63620028e7fc07b46b88eb833090217b, type: 3}
