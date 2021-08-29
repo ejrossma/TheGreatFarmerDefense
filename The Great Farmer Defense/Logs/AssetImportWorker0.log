@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.16f1 (049d6eca3c44) revision 302446'; Using compiler version '192528614'; Build Type 'Release'
 OS: 'Windows 10 Education; OS build 19042.1165; Version 2009; 64bit' Language: 'en' Physical Memory: 16317 MB
@@ -7322,3 +7323,5 @@ C:\WINDOWS\SYSTEM32\dbghelp.dll:dbghelp.dll (00007FF860770000), size: 1982464 (r
 
 A crash has been intercepted by the crash handler. For call stack and other details, see the latest crash report generated in:
  * C:/Users/Hello/AppData/Local/Temp/Unity/Editor/Crashes
+=======
+>>>>>>> d65d9f8919a7929f406e3047dd1e3a893e30e842
